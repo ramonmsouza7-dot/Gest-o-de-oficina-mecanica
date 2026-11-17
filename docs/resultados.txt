@@ -4,15 +4,15 @@ Cenário 1
 Identificação: Cadastro de OS com mecânico livre.
 Dados utilizados: Cliente Maria Silva, veículo ABC1D23, Carlos, 01/12/2026 às 09:00.
 Resultado esperado: OS cadastrada com sucesso.
-Resultado obtido: Aprovado — OS criada e ID gerado.
+Resultado obtido: Aprovado — status HTTP 201 e OS criada com ID.
 Evidência: docs/testes/cenario1.png
 Conclusão: Aprovado.
 
 Cenário 2
-Identificação: Cadastro de segunda OS no horário ocupado.
+Identificação: Cadastro de segunda OS no mesmo horário.
 Dados utilizados: Carlos, 02/12/2026 às 10:00.
-Resultado esperado: mensagem exata de conflito.
-Resultado obtido: Aprovado — operação bloqueada com a mensagem exigida.
+Resultado esperado: bloqueio com status HTTP 409 e mensagem exata de conflito.
+Resultado obtido: Aprovado — conflito detectado no servidor.
 Evidência: docs/testes/cenario2.png
 Conclusão: Aprovado.
 
@@ -20,9 +20,9 @@ Cenário 3
 Identificação: Alteração para horário ocupado pelo mecânico.
 Dados utilizados: alterar segunda OS de 14:00 para 11:00.
 Resultado esperado: bloqueio da alteração.
-Resultado obtido: Aprovado — alteração bloqueada pela regra de conflito, ignorando o próprio registro apenas na regra prevista para verificações futuras.
+Resultado obtido: Aprovado — status HTTP 409 e a mensagem exata de conflito.
 Evidência: docs/testes/cenario3.png
 Conclusão: Aprovado.
 
 Resumo da execução
-3 testes executados — 0 falhas — 0 erros — 0 ignorados.
+3 testes executados — 3 aprovados — 0 falhas — 0 erros.

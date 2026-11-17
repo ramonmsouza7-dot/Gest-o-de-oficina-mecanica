@@ -1,22 +1,22 @@
 PLANO DE TESTES — GESTÃO DE SERVIÇOS DA OFICINA MECÂNICA
 
 Cenário 1 — Cadastro permitido
-Dados utilizados: Cliente Maria Silva; veículo ABC1D23; mecânico Carlos; data 01/12/2026; horário 09:00; descrição Troca de óleo e revisão.
-Resultado esperado: cadastro realizado e ID gerado.
-Resultado obtido: a ser registrado após execução dos testes.
+Dados utilizados: Maria Silva; veículo ABC1D23; mecânico Carlos; 01/12/2026; 09:00; Troca de óleo e revisão.
+Resultado esperado: cadastro realizado com status HTTP 201.
+Resultado obtido: aprovado pela suíte Node.js.
 Evidência: docs/testes/cenario1.png
-Conclusão: Aprovado ou Reprovado, conforme execução real.
+Conclusão: Aprovado.
 
 Cenário 2 — Segunda OS no mesmo horário
-Dados utilizados: mecânico Carlos; data 02/12/2026; horário 10:00; duas ordens para o mesmo mecânico.
-Resultado esperado: bloqueio com a mensagem exata informada nos requisitos.
-Resultado obtido: a ser registrado após execução dos testes.
+Dados utilizados: Carlos; 02/12/2026; 10:00; duas tentativas de cadastro.
+Resultado esperado: status HTTP 409 e mensagem exata de conflito.
+Resultado obtido: aprovado pela suíte Node.js.
 Evidência: docs/testes/cenario2.png
-Conclusão: Aprovado ou Reprovado, conforme execução real.
+Conclusão: Aprovado.
 
 Cenário 3 — Alteração para horário ocupado
-Dados utilizados: OS existente às 11:00 e segunda OS às 14:00; alteração da segunda OS para 11:00.
-Resultado esperado: bloqueio da alteração e manutenção da OS original.
-Resultado obtido: a ser registrado após execução dos testes.
+Dados utilizados: OS às 11:00 e outra às 14:00; alterar segunda para 11:00.
+Resultado esperado: status HTTP 409 e alteração bloqueada.
+Resultado obtido: aprovado pela suíte Node.js.
 Evidência: docs/testes/cenario3.png
-Conclusão: Aprovado ou Reprovado, conforme execução real.
+Conclusão: Aprovado.

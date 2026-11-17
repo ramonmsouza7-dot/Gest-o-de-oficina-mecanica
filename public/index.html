@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gestão da Oficina</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main id="loginView" class="login-shell">
+    <section class="login-card">
+      <div class="brand-mark">OM</div>
+      <p class="eyebrow">Sistema de gestão</p>
+      <h1>Oficina Mecânica</h1>
+      <form id="loginForm" class="form-stack">
+        <label>E-mail<input name="email" type="email" value="admin@oficina.com" required></label>
+        <label>Senha<input name="senha" type="password" value="123456" required></label>
+        <p id="loginError" class="alert error" hidden></p>
+        <button class="btn primary" type="submit">Entrar</button>
+      </form>
+    </section>
+  </main>
+
+  <div id="appView" hidden>
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">OM</span><strong>Oficina</strong></div>
+      <nav>
+        <button class="nav-link active" data-view="dashboard">Painel</button>
+        <button class="nav-link" data-view="clientes">Clientes</button>
+        <button class="nav-link" data-view="veiculos">Veículos</button>
+        <button class="nav-link" data-view="ordens">Ordens de Serviço</button>
+        <button class="nav-link admin-only" data-view="auditoria">Auditoria</button>
+      </nav>
+      <div class="user-area"><strong id="userName"></strong><span id="userRole"></span><button id="logoutBtn" class="logout">Sair</button></div>
+    </aside>
+
+    <main class="content">
+      <section id="dashboard" class="page active">
+        <header class="page-header"><div><p class="eyebrow">Visão geral</p><h1>Painel da Oficina</h1></div></header>
+        <div class="stats-grid">
+          <article class="stat-card"><span>Clientes</span><strong id="totalClientes">0</strong></article>
+          <article class="stat-card"><span>Veículos</span><strong id="totalVeiculos">0</strong></article>
+          <article class="stat-card"><span>Ordens</span><strong id="totalOrdens">0</strong></article>
+        </div>
+      </section>
+
+      <section id="clientes" class="page">
+        <header class="page-header"><div><p class="eyebrow">Cadastro</p><h1>Clientes</h1></div></header>
+        <article class="panel"><h2>Novo cliente</h2><form id="clienteForm" class="form-grid">
+          <label>Nome<input name="nome" required></label><label>CPF<input name="cpf"></label>
+          <label>Telefone<input name="telefone"></label><label>E-mail<input name="email" type="email"></label>
+          <button class="btn primary">Cadastrar</button>
+        </form></article>
+        <article class="panel table-panel"><div class="table-wrap"><table><thead><tr><th>Nome</th><th>CPF</th><th>Telefone</th><th>E-mail</th><th>Ações</th></tr></thead><tbody id="clientesBody"></tbody></table></div></article>
+      </section>
+
+      <section id="veiculos" class="page">
+        <header class="page-header"><div><p class="eyebrow">Cadastro</p><h1>Veículos</h1></div></header>
+        <article class="panel"><h2>Novo veículo</h2><form id="veiculoForm" class="form-grid">
+          <label>Proprietário<select name="cliente_id" id="clienteVeiculoSelect" required></select></label>
+          <label>Marca<input name="marca" required></label><label>Modelo<input name="modelo" required></label>
+          <label>Placa<input name="placa" required></label><label>Ano<input name="ano" type="number"></label>
+          <button class="btn secondary">Cadastrar veículo</button>
+        </form></article>
+        <article class="panel table-panel"><div class="table-wrap"><table><thead><tr><th>Placa</th><th>Marca</th><th>Modelo</th><th>Ano</th><th>Proprietário</th><th>Ações</th></tr></thead><tbody id="veiculosBody"></tbody></table></div></article>
+      </section>
+
+      <section id="ordens" class="page">
+        <header class="page-header"><div><p class="eyebrow">Atendimento</p><h1>Ordens de Serviço</h1></div></header>
+        <p id="osMessage" class="alert" hidden></p>
+        <form id="filterForm" class="filter-bar"><label>Nome do cliente<input name="cliente"></label><label>Data<input name="data" type="date"></label><button class="btn secondary">Filtrar</button><button type="button" id="clearFilter" class="btn ghost">Limpar</button></form>
+        <article class="panel table-panel"><div class="table-wrap"><table><thead><tr><th>OS</th><th>Cliente</th><th>Veículo</th><th>Descrição</th><th>Mecânico</th><th>Agendamento</th><th>Situação</th><th>Ações</th></tr></thead><tbody id="ordensBody"></tbody></table></div><div id="pagination" class="pagination"></div></article>
+        <article class="panel"><h2>Nova ordem de serviço</h2><form id="osForm" class="form-grid">
+          <label>Cliente<select name="cliente_id" id="osCliente" required></select></label>
+          <label>Veículo<select name="veiculo_id" id="osVeiculo" required></select></label>
+          <label>Mecânico<select name="mecanico_id" id="osMecanico" required></select></label>
+          <label>Situação<select name="situacao"><option>AGENDADA</option><option>EM_EXECUCAO</option><option>CONCLUIDA</option><option>CANCELADA</option></select></label>
+          <label>Data<input name="data_agendamento" type="date" required></label><label>Horário<input name="horario_agendamento" type="time" required></label>
+          <label class="full">Descrição<textarea name="descricao" required></textarea></label>
+          <button class="btn primary">Agendar OS</button>
+        </form></article>
+      </section>
+
+      <section id="auditoria" class="page">
+        <header class="page-header"><div><p class="eyebrow">Administrador</p><h1>Auditoria</h1></div></header>
+        <article class="panel table-panel"><div class="table-wrap"><table><thead><tr><th>OS</th><th>Operação</th><th>Data e hora</th><th>Usuário</th></tr></thead><tbody id="auditoriaBody"></tbody></table></div></article>
+      </section>
+    </main>
+  </div>
+  <script src="/app.js"></script>
+</body>
+</html>

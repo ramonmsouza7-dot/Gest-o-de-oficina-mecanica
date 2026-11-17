@@ -1,45 +1,45 @@
 # Gestão de Serviços da Oficina Mecânica
 
-Sistema web desenvolvido com Java, Spring Boot, HTML, CSS e JavaScript.
+Sistema web em JavaScript, HTML e CSS, com servidor Node.js e banco SQLite.
 
 ## Tecnologias
 
-- Java 21
-- Spring Boot 3.5
-- Spring Security
-- Spring Data JPA
-- Thymeleaf
-- HTML/CSS/JavaScript
-- Banco H2
-- JUnit
+- HTML
+- CSS
+- JavaScript
+- Node.js
+- Express
+- SQLite
+- JWT
+- BCrypt
 
 ## Executar
 
 ```bat
-mvnw.cmd spring-boot:run
+npm install
+npm start
 ```
 
-Acesse: `http://localhost:8080`
+Acesse: `http://localhost:3000`
 
 ## Usuários iniciais
 
 - Administrador: `admin@oficina.com` / `123456`
 - Mecânico: `mecanico@oficina.com` / `123456`
-- Mecânico: `joao@oficina.com` / `123456`
 
 ## Banco de dados
 
-O banco H2 é criado automaticamente em `data/oficina.mv.db`. O console fica em `http://localhost:8080/h2-console`.
+O banco SQLite é criado automaticamente em `data/oficina.db`.
 
 ## Testes
 
 ```bat
-mvnw.cmd test
+npm test
 ```
 
-Os cenários obrigatórios estão em `src/test/java/com/oficina/service/OrdemServicoServiceTest.java`.
+Os três cenários obrigatórios estão em `test/ordens.test.js`.
 
 ## Permissões
 
-- Mecânico: consulta e atualiza informações permitidas, mas não exclui registros.
-- Administrador: acesso completo, inclusive exclusão de clientes e ordens de serviço.
+- Mecânico: consulta e atualiza dados permitidos, mas não exclui registros.
+- Administrador: acesso completo, incluindo exclusão de clientes, veículos e ordens de serviço.
