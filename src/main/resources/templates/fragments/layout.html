@@ -1,0 +1,20 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<th:block th:fragment="layout(content)">
+  <aside class="sidebar">
+    <a class="brand" th:href="@{/dashboard}"><span class="brand-mark">OM</span><strong>Oficina</strong></a>
+    <nav>
+      <a th:href="@{/dashboard}">Painel</a>
+      <a th:href="@{/clientes}">Clientes</a>
+      <a th:href="@{/ordens}">Ordens de Serviço</a>
+    </nav>
+    <div class="user-area">
+      <span sec:authentication="name">Usuário</span>
+      <form th:action="@{/logout}" method="post"><button type="submit" class="logout">Sair</button></form>
+    </div>
+  </aside>
+  <div class="app-content" th:insert="${content}"></div>
+</th:block>
+</body>
+</html>

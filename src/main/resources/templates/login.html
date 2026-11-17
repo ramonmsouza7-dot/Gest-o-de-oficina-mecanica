@@ -1,0 +1,27 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login — Oficina Mecânica</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="login-page">
+  <main class="login-card">
+    <div class="brand-mark">OM</div>
+    <h1>Oficina Mecânica</h1>
+    <p class="subtitle">Gestão de serviços e agendamentos</p>
+    <form th:action="@{/login}" method="post" class="form-stack">
+      <label>E-mail
+        <input type="email" name="username" required placeholder="usuario@oficina.com">
+      </label>
+      <label>Senha
+        <input type="password" name="password" required placeholder="Sua senha">
+      </label>
+      <p th:if="${param.error}" class="alert alert-error">E-mail ou senha inválidos.</p>
+      <p th:if="${param.logout}" class="alert alert-success">Sessão encerrada.</p>
+      <button type="submit" class="btn btn-primary">Entrar</button>
+    </form>
+  </main>
+</body>
+</html>

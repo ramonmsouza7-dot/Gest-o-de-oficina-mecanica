@@ -1,0 +1,21 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Ordens de Serviço — Oficina Mecânica</title><link rel="stylesheet" th:href="@{/css/style.css}"></head>
+<body><div th:replace="~{fragments/layout :: layout(~{::main})}"><main>
+  <header class="page-header"><div><p class="eyebrow">Atendimento</p><h1>Ordens de serviço</h1></div><button class="btn btn-primary" onclick="document.querySelector('#form-os').scrollIntoView({behavior:'smooth'})">Nova OS</button></header>
+  <p th:if="${erro}" class="alert alert-error" th:text="${erro}"></p><p th:if="${sucesso}" class="alert alert-success" th:text="${sucesso}"></p>
+  <form th:action="@{/ordens}" method="get" class="filter-bar"><label>Nome do cliente<input name="cliente" th:value="${clienteFiltro}"></label><label>Data do atendimento<input name="data" type="date" th:value="${dataFiltro}"></label><button class="btn btn-secondary">Filtrar</button><a class="btn btn-ghost" th:href="@{/ordens}">Limpar</a></form>
+  <article class="panel"><div class="table-wrap"><table><thead><tr><th>Número OS</th><th>Cliente</th><th>Veículo</th><th>Descrição</th><th>Mecânico</th><th>Agendamento</th><th>Situação</th><th sec:authorize="hasRole('ADMINISTRADOR')">Ações</th></tr></thead>
+    <tbody><tr th:each="item : ${resultado.content}"><td th:text="${item.id}"></td><td th:text="${item.cliente.nome}"></td><td th:text="${item.veiculo.placa + ' — ' + item.veiculo.modelo}"></td><td th:text="${item.descricao}"></td><td th:text="${item.mecanico.nome}"></td><td><span th:text="${item.dataAgendamento}"></span> às <span th:text="${item.horarioAgendamento}"></span></td><td><span class="status" th:text="${item.situacao}"></span></td>
+      <td sec:authorize="hasRole('ADMINISTRADOR')"><form th:action="@{/ordens/{id}/excluir(id=${item.id})}" method="post" onsubmit="return confirm('Excluir esta ordem de serviço?')"><button class="btn btn-danger">Excluir</button></form></td></tr></tbody></table></div>
+    <div class="pagination"><a th:if="${resultado.hasPrevious()}" th:href="@{/ordens(page=${resultado.number-1},cliente=${clienteFiltro},data=${dataFiltro})}">Anterior</a><span th:text="'Página ' + (${resultado.number+1}) + ' de ' + (${resultado.totalPages == 0 ? 1 : resultado.totalPages})"></span><a th:if="${resultado.hasNext()}" th:href="@{/ordens(page=${resultado.number+1},cliente=${clienteFiltro},data=${dataFiltro})}">Próxima</a></div>
+  </article>
+  <article class="panel" id="form-os"><h2>Cadastrar ordem de serviço</h2><form th:object="${os}" th:action="@{/ordens}" method="post" class="form-grid">
+    <label>Cliente<select th:field="*{cliente.id}" required><option value="">Selecione</option><option th:each="c : ${clientes}" th:value="${c.id}" th:text="${c.nome}"></option></select></label>
+    <label>Veículo<select th:field="*{veiculo.id}" required><option value="">Selecione</option><option th:each="v : ${veiculos}" th:value="${v.id}" th:text="${v.placa + ' — ' + v.modelo}"></option></select></label>
+    <label>Mecânico<select th:field="*{mecanico.id}" required><option value="">Selecione</option><option th:each="m : ${mecanicos}" th:value="${m.id}" th:text="${m.nome}"></option></select></label>
+    <label>Situação<select th:field="*{situacao}"><option th:each="s : ${situacoes}" th:value="${s}" th:text="${s}"></option></select></label>
+    <label>Data<input th:field="*{dataAgendamento}" type="date" required></label><label>Horário<input th:field="*{horarioAgendamento}" type="time" required></label>
+    <label class="full">Descrição<textarea th:field="*{descricao}" required></textarea></label><button class="btn btn-primary" type="submit">Agendar OS</button>
+  </form></article>
+</main></div></body></html>

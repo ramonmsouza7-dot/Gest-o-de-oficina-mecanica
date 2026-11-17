@@ -1,0 +1,22 @@
+PLANO DE TESTES — GESTÃO DE SERVIÇOS DA OFICINA MECÂNICA
+
+Cenário 1 — Cadastro permitido
+Dados utilizados: Cliente Maria Silva; veículo ABC1D23; mecânico Carlos; data 01/12/2026; horário 09:00; descrição Troca de óleo e revisão.
+Resultado esperado: cadastro realizado e ID gerado.
+Resultado obtido: a ser registrado após execução dos testes.
+Evidência: docs/testes/cenario1.png
+Conclusão: Aprovado ou Reprovado, conforme execução real.
+
+Cenário 2 — Segunda OS no mesmo horário
+Dados utilizados: mecânico Carlos; data 02/12/2026; horário 10:00; duas ordens para o mesmo mecânico.
+Resultado esperado: bloqueio com a mensagem exata informada nos requisitos.
+Resultado obtido: a ser registrado após execução dos testes.
+Evidência: docs/testes/cenario2.png
+Conclusão: Aprovado ou Reprovado, conforme execução real.
+
+Cenário 3 — Alteração para horário ocupado
+Dados utilizados: OS existente às 11:00 e segunda OS às 14:00; alteração da segunda OS para 11:00.
+Resultado esperado: bloqueio da alteração e manutenção da OS original.
+Resultado obtido: a ser registrado após execução dos testes.
+Evidência: docs/testes/cenario3.png
+Conclusão: Aprovado ou Reprovado, conforme execução real.
